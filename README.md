@@ -1,5 +1,30 @@
 # prepare_voc_for_torch_version
- prepare dataset for voc https://github.com/ultralytics/yolov3
+> 服务于代码： https://github.com/ultralytics/yolov3
+
+Updates:
+
+最新一次更新将四个脚本综合到一个脚本中了，变得更加简单。
+
+Follow steps below:
+
+1. 将你的jpg格式的图片放在JPEGImges文件夹中
+2. 将对应的xml格式的标注文件放在Annotations文件夹中
+3. 运行create_all.py文件
+4. 按照create_all.py文件中最后的提示处理。
+
+---
+
+如果有问题欢迎发issue进行提问，或者直接联系我, 微信：DPJ3339330172
+
+也欢迎关注微信公众号：GiantPandaCV
+
+![](https://img-blog.csdnimg.cn/20200116212417846.jpg)
+
+
+
+---
+
+Before:
 
 这个库准备了一些python脚本，实现了以下功能：
 

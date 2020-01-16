@@ -12,7 +12,9 @@ import os, shutil
         - train2014
         - val2014
 """
-
+def make_dir(image_dir):
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir)
 
 def make_for_torch_yolov3(dir_image, 
                                  dir_label,
@@ -22,14 +24,10 @@ def make_for_torch_yolov3(dir_image,
                                  dir2_val,
                                  main_trainval,
                                  main_test):
-    if not os.path.exists(dir1_train):
-        os.mkdir(dir1_train)
-    if not os.path.exists(dir1_val):
-        os.mkdir(dir1_val)
-    if not os.path.exists(dir2_train):
-        os.mkdir(dir2_train)
-    if not os.path.exists(dir2_val):
-        os.mkdir(dir2_val)
+    make_dir(dir1_train)
+    make_dir(dir1_val)
+    make_dir(dir2_train)
+    main_dir(dir2_val)
 
     with open(main_trainval, "r") as f1:
         for line in f1:
@@ -62,17 +60,19 @@ if __name__ == "__main__":
     trainval.txt, test.txt 是由create_main.py构建的
     '''
 
-    dir_image = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\JPEGImages"
-    dir_label = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\labels"
+    dir_image = r".\JPEGImages"
+    dir_label = r".\labels"
 
-    dir1_train = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\images\train2014"
-    dir1_val = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\images\val2014"
+    dir1_train = r".\images\train2014"
+    dir1_val = r".\images\val2014"
 
-    dir2_train = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\label\train2014"
-    dir2_val = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\label\val2014"
+    dir2_train = r".\label\train2014"
+    dir2_val = r".\label\val2014"
 
-    main_trainval = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\ImageSets\Main\trainval.txt"
-    main_test = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\ImageSets\Main\test.txt"
+    main_trainval = r".\ImageSets\Main\trainval.txt"
+    main_test = r".\ImageSets\Main\test.txt"
+
+
 
     make_for_torch_yolov3(dir_image, 
                             dir_label,

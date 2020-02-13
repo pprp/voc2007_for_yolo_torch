@@ -14,11 +14,11 @@ if __name__ == "__main__":
     annotations_dir = r".\Annotations"  # 标注文件保存位置
 
     # 分为3份：train,val,test
-    trainval_percent = 0.9  # (train+val)/(train+val+test)
+    trainval_percent = 0.8  # (train+val)/(train+val+test)
     train_percent = 1  # (train)/(train+val)
 
     # 修改类别
-    classes = ["dim target"]  #修改为自己的类别,多个类["class1","class2"]
+    classes = ["crack", "lime", "rebar", "spall"]  #修改为自己的类别,多个类["class1","class2"]
 
     dir_label = r".\voc_labels"
 
@@ -29,6 +29,7 @@ if __name__ == "__main__":
 
     main_trainval = r".\ImageSets\Main\trainval.txt"
     main_test = r".\ImageSets\Main\test.txt"
+    
     ##################################################################################
 
     # 1. 检查jpg和xml文件是否是一一对应的

@@ -19,8 +19,8 @@ def convert(size, box):
     # 进行归一化
     dw = 1. / (size[0])
     dh = 1. / (size[1])
-    x = (box[0] + box[1]) / 2.0 
-    y = (box[2] + box[3]) / 2.0 
+    x = (box[0] + box[1]) / 2.0
+    y = (box[2] + box[3]) / 2.0
     w = box[1] - box[0]
     h = box[3] - box[2]
     x = x * dw
@@ -31,7 +31,7 @@ def convert(size, box):
 
 
 def convert_annotation(year, image_id, classes):
-    in_file = open('Annotations/%s.xml' % (image_id))  #将数据集放于当前目录下
+    in_file = open('Annotations/%s.xml' % (image_id), 'r', encoding='utf-8')  #将数据集放于当前目录下
     out_file = open('voc_labels/%s.txt' % (image_id), 'w')
     tree = ET.parse(in_file)
     root = tree.getroot()
@@ -57,9 +57,14 @@ def gen_voc_lable(classes):
         if not os.path.exists('voc_labels/'):
             os.makedirs('voc_labels/')
         image_ids = open('ImageSets/Main/%s.txt' %
-                        (image_set)).read().strip().split()
-        list_file = open('%s_%s.txt' % (year, image_set), 'w')
+                         (image_set)).readlines()  #.strip()#.split()
+        # print(image_ids)
+        print('*' * 20)
+        list_file = open('%s_%s.txt' % (year, image_set),
+                         'w')
         for image_id in image_ids:
+            image_id = image_id[:-1]
+            print(image_id)
             list_file.write('./data/images/train2014/%s.jpg\n' % (image_id))
             convert_annotation(year, image_id, classes)
         list_file.close()

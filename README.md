@@ -20,7 +20,9 @@ Follow steps below:
 
 ![](https://img-blog.csdnimg.cn/20200116212417846.jpg)
 
+如果不太理解，可以先看一下教程：https://www.cnblogs.com/pprp/p/10863496.html
 
+然后再运行代码。
 
 ---
 

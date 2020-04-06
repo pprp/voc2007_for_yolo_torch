@@ -65,6 +65,6 @@ def gen_voc_lable(classes):
         for image_id in image_ids:
             image_id = image_id[:-1]
             print(image_id)
-            list_file.write('./data/images/train2014/%s.jpg\n' % (image_id))
+            list_file.write('./data/images/%s2014/%s.jpg\n' % (image_set ,image_id))
             convert_annotation(year, image_id, classes)
         list_file.close()

@@ -9,8 +9,9 @@ Follow steps below:
 
 1. 将你的jpg格式的图片放在JPEGImges文件夹中
 2. 将对应的xml格式的标注文件放在Annotations文件夹中
-3. 运行create_all.py文件
-4. 按照create_all.py文件中最后的提示处理。
+3. 按照你的数据集要求修改create_all.py中的参数部分
+4. 运行create_all.py文件
+5. 按照create_all.py文件中最后的提示处理。
 
 ---
 
@@ -34,8 +35,6 @@ Before:
 - 批量改动xml文件中对象的名称
 - 创建Main文件中的四个txt文件
 - 从xml文件中读取信息，转化为labels中的txt文件
-
-[TOC]
 
 ## 1. 数据集检查
 

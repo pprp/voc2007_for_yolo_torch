@@ -1,4 +1,5 @@
 # prepare_voc_for_torch_version
+
 > 服务于代码： https://github.com/ultralytics/yolov3
 
 Updates:
@@ -35,6 +36,8 @@ Before:
 - 批量改动xml文件中对象的名称
 - 创建Main文件中的四个txt文件
 - 从xml文件中读取信息，转化为labels中的txt文件
+
+
 
 ## 1. 数据集检查
 
@@ -238,6 +241,10 @@ for year, image_set in sets:
             		- 100.txt
             		- 101.txt
 ```
+
+有群友反映这里的label不太理解，在这里统一解释一下，pytorch的yolov3是需要images和labels文件夹的，但是由于voc2007本身通过voc_label脚本构建的时候就存在labels文件夹，命名冲突，所以这里暂且命名为label，然后在使用的时候手动将label改为labels即可。
+
+不过也不用很担心，最新更新了create_all.py里将所有步骤合并到一起，只需要修改一下create all文件中的参数，然后就可以一键从VOC2007格式转为pytorch所需要的yolov3的格式。
 
 文件夹构造好以后，运行脚本：`make_for_yolov3_torch.py`
 

@@ -1,6 +1,8 @@
 # prepare_voc_for_torch_version
 
-> 服务于代码： https://github.com/ultralytics/yolov3
+> 服务于代码： https://github.com/ultralytics/yolov3 
+> 目前更新比较多，适配旧代码：https://github.com/pprp/SimpleCVReproduction/tree/master/yolov3-6
+> 也可以查看 https://github.com/pprp/deep_sort_yolov3_pytorch 中的yolov3部分的代码，其中实现了部分注意力算法
 
 Updates:
 

@@ -1,4 +1,4 @@
-# voc2007_for_torch_version
+# voc2007_for_torch
 
 > 服务于于代码： https://github.com/ultralytics/yolov3
 > 目前更新比较多，适配旧代码：https://github.com/GiantPandaCV/yolov3-point

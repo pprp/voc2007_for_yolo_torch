@@ -1,5 +1,4 @@
 import os
-import random
 import shutil
 
 from tools.check_jpgAndxml import checkJpgXml

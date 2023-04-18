@@ -1,36 +1,16 @@
-# prepare_voc_for_torch_version
+# voc2007_for_torch_version
 
-> 服务于代码： https://github.com/ultralytics/yolov3 
-> 目前更新比较多，适配旧代码：https://github.com/pprp/SimpleCVReproduction/tree/master/yolov3-6
-> 也可以查看 https://github.com/pprp/deep_sort_yolov3_pytorch 中的yolov3部分的代码，其中实现了部分注意力算法
-
-Updates:
-
-最新一次更新将四个脚本综合到一个脚本中了，变得更加简单。
-
-Follow steps below:
-
-1. 将你的jpg格式的图片放在JPEGImges文件夹中
-2. 将对应的xml格式的标注文件放在Annotations文件夹中
-3. 按照你的数据集要求修改create_all.py中的参数部分
-4. 运行create_all.py文件
-5. 按照create_all.py文件中最后的提示处理。
-
----
-
-如果有问题欢迎发issue进行提问，或者直接联系我, 微信：DPJ3339330172
-
-也欢迎关注微信公众号：GiantPandaCV
+> 服务于于代码： https://github.com/ultralytics/yolov3 
+> 目前更新比较多，适配旧代码：https://github.com/GiantPandaCV/yolov3-point
+> 也可以查看 https://github.com/pprp/deep_sort_yolov3_pytorch 中的yolov3部分的代码
+> 如果有问题欢迎发issue进行提问，欢迎关注微信公众号：GiantPandaCV
 
 ![](https://img-blog.csdnimg.cn/20200116212417846.jpg)
 
-如果不太理解，可以先看一下教程：https://www.cnblogs.com/pprp/p/10863496.html
+如果不太理解，可以先看一下教程：https://www.cnblogs.com/pprp/p/10863496.html，然后再运行代码。
 
-然后再运行代码。
+明确一下：所谓格式都是人为规定的，如果您发现代码无法运行，请先理解一下要求的格式。
 
----
-
-Before:
 
 这个库准备了一些python脚本，实现了以下功能：
 
@@ -39,6 +19,13 @@ Before:
 - 创建Main文件中的四个txt文件
 - 从xml文件中读取信息，转化为labels中的txt文件
 
+## 0. 介绍
+
+1. 将您的jpg格式的图片放在JPEGImges文件夹中
+2. 将对应的xml格式的标注文件放在Annotations文件夹中
+3. 按照您的数据集要求修改create_all.py中的参数部分
+4. 运行create_all.py文件
+5. 按照create_all.py文件中最后的提示处理。
 
 
 ## 1. 数据集检查

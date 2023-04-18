@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 需要修改的地方：
 1. sets中替换为自己的数据集
@@ -6,9 +5,9 @@
 4. 直接开始运行
 """
 
-import xml.etree.ElementTree as ET
-import pickle
 import os
+import pickle
+import xml.etree.ElementTree as ET
 from os import listdir
 from os.path import join
 
@@ -31,7 +30,8 @@ def convert(size, box):
 
 
 def convert_annotation(year, image_id, classes):
-    in_file = open('Annotations/%s.xml' % (image_id), 'r', encoding='utf-8')  #将数据集放于当前目录下
+    in_file = open('Annotations/%s.xml' % (image_id), 'r',
+                   encoding='utf-8')  #将数据集放于当前目录下
     out_file = open('voc_labels/%s.txt' % (image_id), 'w')
     tree = ET.parse(in_file)
     root = tree.getroot()
@@ -49,7 +49,7 @@ def convert_annotation(year, image_id, classes):
              float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
         bb = convert((w, h), b)
         out_file.write(
-            str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
+            str(cls_id) + ' ' + ' '.join([str(a) for a in bb]) + '\n')
 
 
 def gen_voc_lable(classes):
@@ -60,11 +60,11 @@ def gen_voc_lable(classes):
                          (image_set)).readlines()  #.strip()#.split()
         # print(image_ids)
         print('*' * 20)
-        list_file = open('%s_%s.txt' % (year, image_set),
-                         'w')
+        list_file = open('%s_%s.txt' % (year, image_set), 'w')
         for image_id in image_ids:
             image_id = image_id[:-1]
             print(image_id)
-            list_file.write('./data/images/%s2014/%s.jpg\n' % (image_set ,image_id))
+            list_file.write('./data/images/%s2014/%s.jpg\n' %
+                            (image_set, image_id))
             convert_annotation(year, image_id, classes)
         list_file.close()

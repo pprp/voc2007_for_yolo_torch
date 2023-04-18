@@ -1,4 +1,4 @@
-classes=1 
+classes=1
 train=./data/2007_train.txt
 valid=./data/2007_test.txt
 names=data/template.names

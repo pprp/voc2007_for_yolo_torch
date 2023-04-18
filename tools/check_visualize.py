@@ -1,15 +1,16 @@
 import os
-import cv2
 import random
 import shutil
-from xml.etree.ElementTree import parse, Element
+from xml.etree.ElementTree import Element, parse
+
+import cv2
 
 
 def mk(path):
     if not os.path.exists(path):
         os.makedirs(path)
     else:
-        print("There are %d files in %s" % (len(os.listdir(path)), path))
+        print('There are %d files in %s' % (len(os.listdir(path)), path))
 
 
 def checkJpgXml(jpg_dirs,
@@ -29,10 +30,10 @@ def checkJpgXml(jpg_dirs,
     set2 = set()
 
     for i in os.listdir(jpg_dirs):
-        set1.add(i.split(".")[0])
+        set1.add(i.split('.')[0])
 
     for j in os.listdir(xml_dirs):
-        set2.add(j.split(".")[0])
+        set2.add(j.split('.')[0])
 
     intersection = set1 & set2
 
@@ -43,40 +44,40 @@ def checkJpgXml(jpg_dirs,
     jpg_error_set = set1 - intersection
     xml_error_set = set2 - intersection
 
-    print("###########  right jpgs  ###########")
+    print('###########  right jpgs  ###########')
     for _name in intersection:
 
-        path1 = os.path.join(jpg_dirs, _name + ".jpg")
-        path2 = os.path.join(intersection_jpg_dir, _name + ".jpg")
+        path1 = os.path.join(jpg_dirs, _name + '.jpg')
+        path2 = os.path.join(intersection_jpg_dir, _name + '.jpg')
         shutil.copy(path1, path2)
 
-        path1 = os.path.join(xml_dirs, _name + ".xml")
-        path2 = os.path.join(intersection_xml_dir, _name + ".xml")
+        path1 = os.path.join(xml_dirs, _name + '.xml')
+        path2 = os.path.join(intersection_xml_dir, _name + '.xml')
         shutil.copy(path1, path2)
 
     if len(jpg_error_set) > 0 or len(xml_error_set):
-        print("There are %d error jpg and %d error xml" %
+        print('There are %d error jpg and %d error xml' %
               (len(jpg_error_set), len(xml_error_set)))
 
         if is_move:
-            print("###########  Error jpgs  ###########")
+            print('###########  Error jpgs  ###########')
             for _jpg in jpg_error_set:
                 print(_jpg + '.jpg')
-                path1 = os.path.join(jpg_dirs, _jpg + ".jpg")
-                path2 = os.path.join(empty_dirs, _jpg + ".jpg")
+                path1 = os.path.join(jpg_dirs, _jpg + '.jpg')
+                path2 = os.path.join(empty_dirs, _jpg + '.jpg')
                 shutil.move(path1, path2)
 
-            print("###########  Error xmls  ###########")
+            print('###########  Error xmls  ###########')
             for _xml in xml_error_set:
-                print(_xml + ".xml")
-                path1 = os.path.join(xml_dirs, _xml + ".xml")
-                path2 = os.path.join(empty_dirs, _xml + ".xml")
+                print(_xml + '.xml')
+                path1 = os.path.join(xml_dirs, _xml + '.xml')
+                path2 = os.path.join(empty_dirs, _xml + '.xml')
                 shutil.move(path1, path2)
-            print("==============end==================")
+            print('==============end==================')
         return False
 
     else:
-        print("所有图片和对应的xml文件都是一一对应的。")
+        print('所有图片和对应的xml文件都是一一对应的。')
         return True
 
 
@@ -132,7 +133,7 @@ def rescale_img_bbox(xml_path, jpg_path, resizedSize, save_xml_path,
 
     dom = parse(xml_path)
     root = dom.getroot()
-    print("===:", jpg_path)
+    print('===:', jpg_path)
     img = cv2.imread(jpg_path)
     print(img.shape)
     img = isotropically_resize_image(img, resizedSize)
@@ -154,7 +155,7 @@ def rescale_img_bbox(xml_path, jpg_path, resizedSize, save_xml_path,
         xmlbox = obj.find('bndbox')
         x1, y1 = xmlbox.find('xmin').text, xmlbox.find('ymin').text
         x2, y2 = xmlbox.find('xmax').text, xmlbox.find('ymax').text
-        print("IN:", x1, y1, x2, y2)
+        print('IN:', x1, y1, x2, y2)
         x1, y1 = int(x1), int(y1)
         x2, y2 = int(x2), int(y2)
 
@@ -169,17 +170,16 @@ def rescale_img_bbox(xml_path, jpg_path, resizedSize, save_xml_path,
         xmlbox.find('ymax').text = str(int(y2))
 
         _box = [x1, y1, x2, y2]
-        print("out:", _box)
+        print('out:', _box)
         # plot_one_box(_box, img, label=tmp_name)
 
     ssize = root.find('size')
     ssize.find('width').text = str(resizedSize)
     ssize.find('height').text = str(resizedSize)
 
-    cv2.imwrite(os.path.join(save_jpg_path, fileName + ".jpg"), img)
-    dom.write(os.path.join(save_xml_path, fileName + ".xml"),
+    cv2.imwrite(os.path.join(save_jpg_path, fileName + '.jpg'), img)
+    dom.write(os.path.join(save_xml_path, fileName + '.xml'),
               xml_declaration=True)
-
 
 
 def changeName(xml_fold, origin_name, new_name):
@@ -198,10 +198,10 @@ def changeName(xml_fold, origin_name, new_name):
             tmp_name = obj.find('name').text
             if tmp_name == origin_name:  # 修改
                 obj.find('name').text = new_name
-                print("change %s to %s." % (origin_name, new_name))
+                print('change %s to %s.' % (origin_name, new_name))
                 cnt += 1
         dom.write(file_path, xml_declaration=True)  #保存到指定文件
-    print("有%d个文件被成功修改。" % cnt)
+    print('有%d个文件被成功修改。' % cnt)
 
 
 # if __name__ == "__main__":
@@ -209,33 +209,33 @@ def changeName(xml_fold, origin_name, new_name):
 #                origin_name='C00',
 #                new_name='crack')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # jpg_path = r"/home/ubuntu/yolov3/voc2007crack (329).jpg"
     # xml_path = r"/home/ubuntu/yolov3/voc2007crack (329).xml"
 
-    jpg_dirs = "/home/ubuntu/yolov3/voc2007/JPEGImages"
+    jpg_dirs = '/home/ubuntu/yolov3/voc2007/JPEGImages'
     #r"/home/ubuntu/yolov3/voc2007/Annotations/JPEGImages"
-    
-    xml_dirs = "/home/ubuntu/yolov3/voc2007/Annotations"
-    
-    empty_dirs = r"/home/ubuntu/yolov3/voc2007/empty"
 
-    intersection_jpg_dir = r"/home/ubuntu/yolov3/voc2007/interset_jpg"
-    intersection_xml_dir = r"/home/ubuntu/yolov3/voc2007/interset_xml"
+    xml_dirs = '/home/ubuntu/yolov3/voc2007/Annotations'
+
+    empty_dirs = r'/home/ubuntu/yolov3/voc2007/empty'
+
+    intersection_jpg_dir = r'/home/ubuntu/yolov3/voc2007/interset_jpg'
+    intersection_xml_dir = r'/home/ubuntu/yolov3/voc2007/interset_xml'
 
     judge = checkJpgXml(jpg_dirs, xml_dirs, empty_dirs, intersection_jpg_dir,
                         intersection_xml_dir)
 
-    save_jpg_path = r"/home/ubuntu/yolov3/voc2007/outjpgs"
-    save_xml_path = r"/home/ubuntu/yolov3/voc2007/outxmls"
+    save_jpg_path = r'/home/ubuntu/yolov3/voc2007/outjpgs'
+    save_xml_path = r'/home/ubuntu/yolov3/voc2007/outxmls'
 
     resizedSize = 416
 
     for file in os.listdir(intersection_jpg_dir):
         fileName = file.split('.')[0]
         print(fileName)
-        jpg_file_path = os.path.join(intersection_jpg_dir, fileName + ".jpg")
-        xml_file_path = os.path.join(intersection_xml_dir, fileName + ".xml")
+        jpg_file_path = os.path.join(intersection_jpg_dir, fileName + '.jpg')
+        xml_file_path = os.path.join(intersection_xml_dir, fileName + '.xml')
 
         rescale_img_bbox(xml_file_path, jpg_file_path, resizedSize,
                          save_xml_path, save_jpg_path)

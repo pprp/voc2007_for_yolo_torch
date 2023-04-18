@@ -1,6 +1,6 @@
-import xml.etree.ElementTree as ET
-import os
 import json
+import os
+import xml.etree.ElementTree as ET
 
 coco = dict()
 coco['images'] = []

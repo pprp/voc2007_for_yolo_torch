@@ -1,6 +1,6 @@
 # voc2007_for_torch_version
 
-> 服务于于代码： https://github.com/ultralytics/yolov3 
+> 服务于于代码： https://github.com/ultralytics/yolov3
 > 目前更新比较多，适配旧代码：https://github.com/GiantPandaCV/yolov3-point
 > 也可以查看 https://github.com/pprp/deep_sort_yolov3_pytorch 中的yolov3部分的代码
 > 如果有问题欢迎发issue进行提问，欢迎关注微信公众号：GiantPandaCV
@@ -55,7 +55,7 @@
 ```python
 import os, shutil
 
-def checkJpgXml(dir1, dir2, dir3, is_move=True):    
+def checkJpgXml(dir1, dir2, dir3, is_move=True):
     """
     dir1 是图片所在文件夹
     dir2 是标注文件所在文件夹
@@ -89,42 +89,42 @@ if __name__ == "__main__":
 脚本：create_main.py
 
 ```python
-import os  
-import random  
-  
+import os
+import random
+
 trainval_percent = 0.8
 train_percent = 0.8
 
-xmlfilepath = 'Annotations'  
+xmlfilepath = 'Annotations'
 txtsavepath = 'ImageSets\Main'
-total_xml = os.listdir(xmlfilepath)  
-  
-num=len(total_xml)  
-list=range(num)  
-tv=int(num*trainval_percent)  
-tr=int(tv*train_percent)  
-trainval= random.sample(list,tv)  
-train=random.sample(trainval,tr)  
-  
-ftrainval = open('ImageSets/Main/trainval.txt', 'w')  
-ftest = open('ImageSets/Main/test.txt', 'w')  
-ftrain = open('ImageSets/Main/train.txt', 'w')  
-fval = open('ImageSets/Main/val.txt', 'w')  
-  
-for i  in list:  
-    name=total_xml[i][:-4]+'\n'  
-    if i in trainval:  
-        ftrainval.write(name)  
-        if i in train:  
-            ftrain.write(name)  
-        else:  
-            fval.write(name)  
-    else:  
-        ftest.write(name)  
-  
-ftrainval.close()  
-ftrain.close()  
-fval.close()  
+total_xml = os.listdir(xmlfilepath)
+
+num=len(total_xml)
+list=range(num)
+tv=int(num*trainval_percent)
+tr=int(tv*train_percent)
+trainval= random.sample(list,tv)
+train=random.sample(trainval,tr)
+
+ftrainval = open('ImageSets/Main/trainval.txt', 'w')
+ftest = open('ImageSets/Main/test.txt', 'w')
+ftrain = open('ImageSets/Main/train.txt', 'w')
+fval = open('ImageSets/Main/val.txt', 'w')
+
+for i  in list:
+    name=total_xml[i][:-4]+'\n'
+    if i in trainval:
+        ftrainval.write(name)
+        if i in train:
+            ftrain.write(name)
+        else:
+            fval.write(name)
+    else:
+        ftest.write(name)
+
+ftrainval.close()
+ftrain.close()
+fval.close()
 ftest.close()
 ```
 
@@ -157,8 +157,8 @@ classes = ["cow"]     #修改为自己的类别
 def convert(size, box):
     dw = 1./(size[0])
     dh = 1./(size[1])
-    x = (box[0] + box[1])/2.0 
-    y = (box[2] + box[3])/2.0 
+    x = (box[0] + box[1])/2.0
+    y = (box[2] + box[3])/2.0
     w = box[1] - box[0]
     h = box[3] - box[2]
     x = x*dw
@@ -194,7 +194,7 @@ for year, image_set in sets:
     for image_id in image_ids:
         list_file.write('JPEGImages/%s.jpg\n'%(image_id))
         convert_annotation(year, image_id)
-    list_file.close()   
+    list_file.close()
 # os.system("cat 2007_train.txt 2007_val.txt > train.txt")     #修改为自己的数据集用作训练
 ```
 
@@ -254,7 +254,7 @@ import os, shutil
 """
 
 
-def make_for_torch_yolov3(dir_image, 
+def make_for_torch_yolov3(dir_image,
                                  dir_label,
                                  dir1_train,
                                  dir1_val,
@@ -277,16 +277,16 @@ def make_for_torch_yolov3(dir_image,
             # print(os.path.join(dir_image, line[:-1]+".jpg"), os.path.join(dir1_train, line[:-1]+".jpg"))
             shutil.copy(os.path.join(dir_image, line[:-1]+".jpg"),
                         os.path.join(dir1_train, line[:-1]+".jpg"))
-            shutil.copy(os.path.join(dir_label, line[:-1]+".txt"), 
+            shutil.copy(os.path.join(dir_label, line[:-1]+".txt"),
                         os.path.join(dir2_train, line[:-1]+".txt"))
 
 
     with open(main_test, "r") as f2:
         for line in f2:
             print(line[:-1])
-            shutil.copy(os.path.join(dir_image, line[:-1]+".jpg"), 
+            shutil.copy(os.path.join(dir_image, line[:-1]+".jpg"),
                         os.path.join(dir1_val, line[:-1]+".jpg"))
-            shutil.copy(os.path.join(dir_label, line[:-1]+".txt"), 
+            shutil.copy(os.path.join(dir_label, line[:-1]+".txt"),
                         os.path.join(dir2_val, line[:-1]+".txt"))
 
 if __name__ == "__main__":
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     main_trainval = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\ImageSets\Main\trainval.txt"
     main_test = r"C:\Users\pprp\Desktop\VOCdevkit\VOC2007\ImageSets\Main\test.txt"
 
-    make_for_torch_yolov3(dir_image, 
+    make_for_torch_yolov3(dir_image,
                             dir_label,
                             dir1_train,
                             dir1_val,
@@ -323,4 +323,3 @@ if __name__ == "__main__":
                             main_trainval,
                             main_test)
 ```
-

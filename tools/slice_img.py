@@ -1,6 +1,8 @@
+import os
+import xml.etree.ElementTree as ET
+
 import cv2
 import numpy as np
-import xml.etree.ElementTree as ET
 
 
 def visualize(im, bboxes):
@@ -11,14 +13,17 @@ def visualize(im, bboxes):
     return im
 
 
-
-def process_annotation(annotation_path, outdir, slice_height=256, slice_width=256, 
-                       zero_frac_thresh=0.2, overlap=0.2):
+def process_annotation(annotation_path,
+                       outdir,
+                       slice_height=256,
+                       slice_width=256,
+                       zero_frac_thresh=0.2,
+                       overlap=0.2):
     '''Process annotation file and create new annotations for sliced images'''
 
     tree = ET.parse(annotation_path)
     root = tree.getroot()
-    
+
     # extract image size from annotation
     size_elem = root.find('size')
     im_width = int(size_elem.find('width').text)
@@ -84,38 +89,39 @@ def process_annotation(annotation_path, outdir, slice_height=256, slice_width=25
             # create new annotation if window is valid
             if is_valid:
                 count += 1
-                new_annotation_path = os.path.join(outdir, f"{count}.xml")
-                new_root = ET.Element("annotation")
+                new_annotation_path = os.path.join(outdir, f'{count}.xml')
+                new_root = ET.Element('annotation')
 
                 # copy elements from original annotation to new annotation
-                new_root.append(root.find("folder"))
-                new_root.append(root.find("filename"))
-                new_root.append(root.find("source"))
-                new_root.append(root.find("owner"))
-                size_elem = ET.SubElement(new_root, "size")
-                size_elem.append(ET.Element("width", text=str(slice_width)))
-                size_elem.append(ET.Element("height", text=str(slice_height)))
-                size_elem.append(root.find("depth"))
-                new_root.append(root.find("segmented"))
+                new_root.append(root.find('folder'))
+                new_root.append(root.find('filename'))
+                new_root.append(root.find('source'))
+                # new_root.append(root.find('owner'))
+                size_elem = ET.SubElement(new_root, 'size')
+                size_elem.append(ET.Element('width', text=str(slice_width)))
+                size_elem.append(ET.Element('height', text=str(slice_height)))
+                size_elem.append(root.find('depth'))
+                new_root.append(root.find('segmented'))
 
                 # add adjusted bounding boxes to new annotation
                 for bbox in bbox_list:
-                    obj_elem = ET.SubElement(new_root, "object")
-                    obj_elem.append(ET.Element("name", text="object"))
-                    obj_elem.append(root.find("pose"))
-                    obj_elem.append(root.find("truncated"))
-                    obj_elem.append(root.find("difficult"))
-                    bbox_elem = ET.SubElement(obj_elem, "bndbox")
-                    bbox_elem.append(ET.Element("xmin", text=str(bbox[0])))
-                    bbox_elem.append(ET.Element("ymin", text=str(bbox[1])))
-                    bbox_elem.append(ET.Element("xmax", text=str(bbox[2])))
-                    bbox_elem.append(ET.Element("ymax", text=str(bbox[3])))
+                    obj_elem = ET.SubElement(new_root, 'object')
+                    obj_elem.append(ET.Element('name', text='object'))
+                    obj_elem.append(root.find('pose'))
+                    obj_elem.append(root.find('truncated'))
+                    obj_elem.append(root.find('difficult'))
+                    bbox_elem = ET.SubElement(obj_elem, 'bndbox')
+                    bbox_elem.append(ET.Element('xmin', text=str(bbox[0])))
+                    bbox_elem.append(ET.Element('ymin', text=str(bbox[1])))
+                    bbox_elem.append(ET.Element('xmax', text=str(bbox[2])))
+                    bbox_elem.append(ET.Element('ymax', text=str(bbox[3])))
 
                 # write new annotation to file
                 tree = ET.ElementTree(new_root)
                 tree.write(new_annotation_path)
 
-    print(f"Processed {count} slices")
+    print(f'Processed {count} slices')
+
 
 def slice_im(image_path,
              out_name,
@@ -196,9 +202,8 @@ def slice_im(image_path,
 if __name__ == '__main__':
     # slice the image and visualize the windows
     # slice_im('large_image.tif', 'small_image', '.', verbose=True)
-    
-    
-    annotation_path = "path/to/annotation.xml"
-    outdir = "path/to/output/directory"
+
+    annotation_path = './data/Untitled.xml'
+    outdir = './output'
     process_annotation(annotation_path, outdir)
-        
+    slice_im('Untitled.jpg', 'small_image', './output/', verbose=True)

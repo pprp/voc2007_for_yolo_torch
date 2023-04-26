@@ -52,17 +52,17 @@ def addAnnoItem(object_name, image_id, category_id, bbox):
     annotation_item = dict()
     annotation_item['segmentation'] = []
     seg = []
-    #bbox[] is x,y,w,h
-    #left_top
+    # bbox[] is x,y,w,h
+    # left_top
     seg.append(bbox[0])
     seg.append(bbox[1])
-    #left_bottom
+    # left_bottom
     seg.append(bbox[0])
     seg.append(bbox[1] + bbox[3])
-    #right_bottom
+    # right_bottom
     seg.append(bbox[0] + bbox[2])
     seg.append(bbox[1] + bbox[3])
-    #right_top
+    # right_top
     seg.append(bbox[0] + bbox[2])
     seg.append(bbox[1])
 
@@ -103,7 +103,7 @@ def parseXmlFiles(xml_path):
                 'pascal voc xml root element should be annotation, rather than {}'
                 .format(root.tag))
 
-        #elem is <folder>, <filename>, <size>, <object>
+        # elem is <folder>, <filename>, <size>, <object>
         for elem in root:
             current_parent = elem.tag
             current_sub = None
@@ -117,7 +117,7 @@ def parseXmlFiles(xml_path):
                 if file_name in category_set:
                     raise Exception('file_name duplicated')
 
-            #add img item only after parse <size> tag
+            # add img item only after parse <size> tag
             elif current_image_id is None and file_name is not None and size[
                     'width'] is not None:
                 if file_name not in image_set:
@@ -125,7 +125,7 @@ def parseXmlFiles(xml_path):
                     print('add image with {} and {}'.format(file_name, size))
                 else:
                     raise Exception('duplicated image: {}'.format(file_name))
-            #subelem is <width>, <height>, <depth>, <name>, <bndbox>
+            # subelem is <width>, <height>, <depth>, <name>, <bndbox>
             for subelem in elem:
                 bndbox['xmin'] = None
                 bndbox['xmax'] = None
@@ -145,7 +145,7 @@ def parseXmlFiles(xml_path):
                         raise Exception('xml structure broken at size tag.')
                     size[subelem.tag] = int(subelem.text)
 
-                #option is <xmin>, <ymin>, <xmax>, <ymax>, when subelem is <bndbox>
+                # option is <xmin>, <ymin>, <xmax>, <ymax>, when subelem is <bndbox>
                 for option in subelem:
                     if current_sub == 'bndbox':
                         if bndbox[option.tag] is not None:
@@ -153,7 +153,7 @@ def parseXmlFiles(xml_path):
                                 'xml structure corrupted at bndbox tag.')
                         bndbox[option.tag] = int(option.text)
 
-                #only after parse the <object> tag
+                # only after parse the <object> tag
                 if bndbox['xmin'] is not None:
                     if object_name is None:
                         raise Exception('xml structure broken at bndbox tag')
@@ -162,13 +162,13 @@ def parseXmlFiles(xml_path):
                     if current_category_id is None:
                         raise Exception('xml structure broken at bndbox tag')
                     bbox = []
-                    #x
+                    # x
                     bbox.append(bndbox['xmin'])
-                    #y
+                    # y
                     bbox.append(bndbox['ymin'])
-                    #w
+                    # w
                     bbox.append(bndbox['xmax'] - bndbox['xmin'])
-                    #h
+                    # h
                     bbox.append(bndbox['ymax'] - bndbox['ymin'])
                     print('add annotation with {},{},{},{}'.format(
                         object_name, current_image_id, current_category_id,

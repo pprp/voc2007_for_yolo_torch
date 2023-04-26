@@ -4,7 +4,7 @@ import random
 
 def create_main_txts(trainval_percent, train_percent):
     xmlfilepath = 'Annotations'
-    txtsavepath = 'ImageSets\Main'
+    txtsavepath = 'ImageSets/Main'
 
     if not os.path.exists(txtsavepath):
         os.makedirs(txtsavepath)

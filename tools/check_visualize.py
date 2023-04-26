@@ -159,7 +159,7 @@ def rescale_img_bbox(xml_path, jpg_path, resizedSize, save_xml_path,
         x1, y1 = int(x1), int(y1)
         x2, y2 = int(x2), int(y2)
 
-        #rescale
+        # rescale
         x1, x2 = x1 * w_scale, x2 * w_scale
         y1, y2 = y1 * h_scale, y2 * h_scale
 
@@ -194,7 +194,7 @@ def changeName(xml_fold, origin_name, new_name):
         file_path = os.path.join(xml_fold, xmlFile)
         dom = parse(file_path)
         root = dom.getroot()
-        for obj in root.iter('object'):  #获取object节点中的name子节点
+        for obj in root.iter('object'):  # 获取object节点中的name子节点
             tmp_name = obj.find('name').text
             if tmp_name == origin_name:  # 修改
                 obj.find('name').text = new_name
@@ -214,7 +214,7 @@ if __name__ == '__main__':
     # xml_path = r"/home/ubuntu/yolov3/voc2007crack (329).xml"
 
     jpg_dirs = '/home/ubuntu/yolov3/voc2007/JPEGImages'
-    #r"/home/ubuntu/yolov3/voc2007/Annotations/JPEGImages"
+    # r"/home/ubuntu/yolov3/voc2007/Annotations/JPEGImages"
 
     xml_dirs = '/home/ubuntu/yolov3/voc2007/Annotations'
 
